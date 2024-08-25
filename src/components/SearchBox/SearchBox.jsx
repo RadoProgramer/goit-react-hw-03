@@ -7,7 +7,7 @@ const SearchBox = ({ filter, onChange }) => {
   const searchId = nanoid();
   return (
     <div className={styles.filter}>
-      <label htmlFor={searchId}>Find contact by name</label>
+      <label htmlFor={searchId}>Find contact by name </label>
       <input
         type="text"
         id={searchId}

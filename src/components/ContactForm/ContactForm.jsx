@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import PropTypes from "prop-types";
+import { nanoid } from "nanoid";
 import styles from "./ContactForm.module.scss";
 
 const ContactForm = ({ onAddContact }) => {
@@ -11,23 +12,36 @@ const ContactForm = ({ onAddContact }) => {
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string().min(3, "Minimum 3 characters").max(50, "Maximum 50 characters").required("Required"),
+    name: Yup.string()
+      .min(3, "Minimum 3 characters")
+      .max(50, "Maximum 50 characters")
+      .required("Required"),
     number: Yup.string().min(3, "Minimum 3 characters").required("Required"),
   });
 
   const handleSubmit = (values, { resetForm }) => {
-    onAddContact(values.name, values.number);
+    const newContact = {
+      id: nanoid(),
+      name: values.name,
+      number: values.number,
+    };
+
+    onAddContact(newContact);
+
     resetForm();
   };
 
   return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}>
       <Form className={styles.form}>
         <label htmlFor="name">Name</label>
         <Field type="text" name="name" />
         <ErrorMessage name="name" component="div" className={styles.error} />
 
-        <label htmlFor="number">Phone number</label>
+        <label htmlFor="number">Number</label>
         <Field type="tel" name="number" />
         <ErrorMessage name="number" component="div" className={styles.error} />
 

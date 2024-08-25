@@ -3,6 +3,7 @@ import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
 import SearchBox from "../SearchBox/SearchBox";
 import styles from "./Contacts.module.scss";
+import { nanoid } from "nanoid";
 
 export default class Contacts extends Component {
   state = {
@@ -21,25 +22,20 @@ export default class Contacts extends Component {
     }
   }
 
-  addContact = (name, number) => {
+  addContact = (contact) => {
     const { contacts } = this.state;
     const isDuplicate = contacts.some(
-      (contact) => contact.name.toLowerCase() === name.toLowerCase()
+      (existingContact) =>
+        existingContact.name.toLowerCase() === contact.name.toLowerCase()
     );
 
     if (isDuplicate) {
-      alert(`${name} is already in the contacts.`);
+      alert(`${contact.name} is already in the contacts.`);
       return;
     }
 
-    const newContact = {
-      id: nanoid(),
-      name,
-      number,
-    };
-
     this.setState((prevState) => ({
-      contacts: [...prevState.contacts, newContact],
+      contacts: [...prevState.contacts, contact],
     }));
   };
 
@@ -65,7 +61,10 @@ export default class Contacts extends Component {
         <ContactForm onAddContact={this.addContact} />
         <h2>Contacts</h2>
         <SearchBox filter={filter} onChange={this.handleFilterChange} />
-        <ContactList contacts={filteredContacts} onDelete={this.deleteContact} />
+        <ContactList
+          contacts={filteredContacts}
+          onDelete={this.deleteContact}
+        />
       </div>
     );
   }
