@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
 import SearchBox from "../SearchBox/SearchBox";
-import styles from "./Contacts.module.scss";
+import "./Contacts.css";
 import { nanoid } from "nanoid";
 
 export default class Contacts extends Component {
@@ -56,7 +56,7 @@ export default class Contacts extends Component {
     );
 
     return (
-      <div className={styles.contacts}>
+      <div className="contacts">
         <h1>Phonebook</h1>
         <ContactForm onAddContact={this.addContact} />
         <h2>Contacts</h2>

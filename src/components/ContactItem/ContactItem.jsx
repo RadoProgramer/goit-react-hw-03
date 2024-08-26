@@ -1,22 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FaPhoneAlt, FaUser } from "react-icons/fa";
-import styles from "./ContactItem.module.scss";
+import "./ContactItem.css";
 
 const ContactItem = ({ contact, onDelete }) => {
   return (
-    <li className={styles.contactItem}>
-      <div className={styles.topRow}>
-        <div className={styles.icon}>
+    <li className="contactItem">
+      <div className="topRow">
+        <div className="icon">
           <FaUser />
         </div>
-        <span className={styles.name}>{contact.name}</span>
+        <span className="name">{contact.name}</span>
       </div>
-      <div className={styles.bottomRow}>
-        <div className={styles.icon}>
+      <div className="bottomRow">
+        <div className="icon">
           <FaPhoneAlt />
         </div>
-        <span className={styles.number}>{contact.number}</span>
+        <span className="number">{contact.number}</span>
       </div>
       <button onClick={() => onDelete(contact.id)}>Delete</button>
     </li>
